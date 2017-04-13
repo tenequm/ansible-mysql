@@ -19,6 +19,12 @@
     - mysql-server
     - python-mysqldb
 
+- name: Ensuring MySQL server is enabled and will start on boot.
+  service:
+    name: mysql
+    state: started
+    enabled: yes
+
 - name: Setting root user password.
   mysql_user:
     name: root
@@ -35,9 +41,3 @@
     owner: root
     group: root
     mode: 0600
-
-- name: Ensuring MySQL server is enabled and will start on boot.
-  service:
-    name: mysql
-    state: started
-    enabled: yes
