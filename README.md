@@ -1,5 +1,6 @@
 Ansible Role: MySQL
 =========
+[![Build Status](https://travis-ci.org/1nfinitum/ansible-nginx.svg?branch=master)](https://travis-ci.org/1nfinitum/ansible-mysql)
 
 This simple role installs MySQL 5.7 on Ubuntu Xenial and sets password for `root` user.
 
