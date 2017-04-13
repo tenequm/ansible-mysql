@@ -6,7 +6,7 @@
 
 - name: Adding MySQL APT repository.
   apt_repository:
-    repo: deb https://repo.mysql.com/apt/ubuntu xenial mysql-5.7
+    repo: deb http://repo.mysql.com/apt/ubuntu xenial mysql-5.7
     state: present
 
 - name: Installing MySQL package.
