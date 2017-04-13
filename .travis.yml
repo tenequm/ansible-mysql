@@ -23,7 +23,7 @@ script:
 
   # Check to make sure we can connect to MySQL via TCP.
   - >
-    sudo docker exec ${container_id} mysql -u root -proot -h 127.0.0.1 -e 'show databases;'
+    sudo docker exec ${container_id} mysql -u root -proot -h localhost -e 'show databases;'
     | grep -q 'information_schema'
     && (echo 'MySQL running normally' && exit 0)
     || (echo 'MySQL not running' && exit 1)
