@@ -21,13 +21,6 @@ script:
   - docker exec --tty ${container_id} env TERM=xterm cat /var/log/mysql/error.log || true
   - docker exec --tty ${container_id} env TERM=xterm cat /var/log/mysql.err || true
 
-  # Check to make sure we can connect to MySQL via TCP.
-  - >
-    sudo docker exec ${container_id} mysql -u root -proot --protocol=TCP -e 'show databases;'
-    | grep -q 'information_schema'
-    && (echo 'MySQL running normally' && exit 0)
-    || (echo 'MySQL not running' && exit 1)
-
 after_failure:
   # Check MySQL settings.
   - 'docker exec --tty ${container_id} env TERM=xterm cat /var/log/mysql/error.log'
