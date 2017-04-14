@@ -25,6 +25,14 @@
     state: started
     enabled: yes
 
+- name: Copying .my.cnf file for root.
+  template:
+    src: my.cnf.j2
+    dest: ~/.my.cnf
+    owner: root
+    group: root
+    mode: 0600
+
 - name: Setting root user password.
   mysql_user:
     name: root
@@ -33,11 +41,3 @@
     check_implicit_admin: yes
     state: present
   with_items: "{{ mysql_root_hosts }}"
-
-- name: Copying .my.cnf file for root.
-  template:
-    src: my.cnf.j2
-    dest: ~/.my.cnf
-    owner: root
-    group: root
-    mode: 0600
