@@ -32,7 +32,7 @@
     password: "{{ mysql_root_password }}"
     check_implicit_admin: yes
     state: present
-  with_items: mysql_root_hosts
+  with_items: "{{ mysql_root_hosts }}"
 
 - name: Copying .my.cnf file for root.
   template:
