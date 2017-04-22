@@ -1,29 +1,6 @@
 ---
-- name: Obtaining key for MySQL repository.
-  apt_key:
-    keyserver: pgp.mit.edu
-    id: 5072E1F5
-
-- name: Adding MySQL APT repository.
-  apt_repository:
-    repo: deb http://repo.mysql.com/apt/ubuntu xenial mysql-5.7
-    state: present
-
-- name: Installing MySQL package.
-  apt:
-    name: "{{ item }}"
-    state: present
-    update_cache: yes
-    cache_valid_time: 86400
-  with_items:
-    - mysql-server
-    - python-mysqldb
-
-- name: Ensuring MySQL server is enabled and will start on boot.
-  service:
-    name: mysql
-    state: started
-    enabled: yes
+- name: Installing MySQL
+  include: setup.yml
 
 - name: Copying .my.cnf file for root.
   template:
@@ -41,3 +18,22 @@
     check_implicit_admin: yes
     state: present
   with_items: "{{ mysql_root_hosts }}"
+
+- name: Creating MySQL users.
+  mysql_user:
+    name: "{{ item.name }}"
+    host: "{{ item.host|d('localhost') }}"
+    password: "{{ item.password|d(omit) }}"
+    check_implicit_admin: yes
+    state: "{{ item.state|d(omit) }}"
+  when: mysql_users is defined
+  with_items: "{{ mysql_users }}"
+
+- name: Creating MySQL databases.
+  mysql_db:
+    name: "{{ item.name }}"
+    state: "{{ item.state|d(omit) }}"
+    encoding: "{{ item.encoding|d(omit) }}"
+    collation: "{{ item.collation|d(omit) }}"
+  when: mysql_databases is defined
+  with_items: "{{ mysql_databases }}"

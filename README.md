@@ -4,10 +4,35 @@ Ansible Role: MySQL
 
 This simple role installs MySQL 5.7 on Ubuntu Xenial and sets password for `root` user.
 
+## Requirements
+
+No special requirements; note that this role requires root access, so either run it in a playbook with a global `become: yes`, or invoke the role in your playbook like:
+```
+    - hosts: database
+      roles:
+        - role: 1nfinitum.mysql
+          become: yes
+```
 Role Variables
 --------------
-
-There are only two variables:
+```
+mysql_users:  # List
+  - name: username # Username
+    host: localhost # The 'host' part of username. Default is localhost.
+    password: '' # User password as a string, can be omitted.
+    priv: '' MySQL privileges. Can be omitted.
+    state: absent # Whether user should exist. Default is `present`.
+```
+List of users to add. 
+MySQL privileges string should be in the format: db.table:priv1,priv2. Multiple privileges can be specified by separating each one using a forward slash: db.table:priv/db.table:priv. The format is based on MySQL GRANT statement. Database and table names can be quoted, MySQL-style. If column privileges are used, the priv1,priv2 part must be exactly as returned by a SHOW GRANT statement. If not followed, the module will always report changes. It includes grouping columns by permission (SELECT(col1,col2) instead of SELECT(col1,SELECT(col2))).
+```
+mysql_databases: # List
+  - name: dbname # Database name
+    encoding: '' # Database encoding, can be omitted
+    collation: '' # Database collation, can be omitted
+    state: '' # Whether database should exist. Default is `present`.
+```
+List of databases to add. Takes `name`, `encoding`, `collation` and `state` parameters.
 ```
 mysql_root_password: ''
 ```

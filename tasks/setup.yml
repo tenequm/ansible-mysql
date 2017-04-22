@@ -1,0 +1,26 @@
+---
+- name: Obtaining key for MySQL repository.
+  apt_key:
+    keyserver: pgp.mit.edu
+    id: 5072E1F5
+
+- name: Adding MySQL APT repository.
+  apt_repository:
+    repo: deb http://repo.mysql.com/apt/ubuntu xenial mysql-5.7
+    state: present
+
+- name: Installing MySQL package.
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+    cache_valid_time: 86400
+  with_items:
+    - mysql-server
+    - python-mysqldb
+
+- name: Ensuring MySQL server is enabled and will start on boot.
+  service:
+    name: mysql
+    state: started
+    enabled: yes
