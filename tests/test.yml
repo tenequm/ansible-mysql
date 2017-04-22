@@ -1,5 +1,7 @@
 ---
 - hosts: localhost
+  remote_user: root
+  gather_facts: false
 
   roles:
     - role_under_test
