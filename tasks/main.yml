@@ -26,6 +26,7 @@
     password: "{{ item.password|d(omit) }}"
     check_implicit_admin: yes
     state: "{{ item.state|d(omit) }}"
+    priv: "{{ item.priv|d(omit) }}"
   when: mysql_users is defined
   with_items: "{{ mysql_users }}"
 

@@ -36,7 +36,7 @@ List of databases to add. Takes `name`, `encoding`, `collation` and `state` para
 ```
 mysql_root_password: ''
 ```
-You can set preferred password for MySQL `root` user.
+You can set preferred password for MySQL `root` user. Default is `root`.
 ```
 mysql_root_hosts: []
 ```
