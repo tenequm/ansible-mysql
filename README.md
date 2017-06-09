@@ -1,6 +1,6 @@
 Ansible Role: MySQL
 =========
-[![Build Status](https://travis-ci.org/1nfinitum/ansible-mysql.svg?branch=master)](https://travis-ci.org/1nfinitum/ansible-mysql)
+[![Build Status](https://travis-ci.org/tenequm/ansible-mysql.svg?branch=master)](https://travis-ci.org/tenequm/ansible-mysql)
 
 This simple role installs MySQL 5.7 on Ubuntu Xenial and sets password for `root` user.
 
@@ -10,7 +10,7 @@ No special requirements; note that this role requires root access, so either run
 ```
     - hosts: database
       roles:
-        - role: 1nfinitum.mysql
+        - role: tenequm.mysql
           become: yes
 ```
 Role Variables
@@ -49,7 +49,7 @@ Including an example of how to use your role (for instance, with variables passe
 ```
     - hosts: servers
       roles:
-         - { role: 1nfinitum.mysql, mysql_root_password: toor }
+         - { role: tenequm.mysql, mysql_root_password: toor }
 ```
 License
 -------
@@ -59,4 +59,4 @@ MIT
 Author Information
 ------------------
 
-This role was created in 2017 by [Mykhaylo Kolesnik](http://github.com/1nfinitum).
+This role was created in 2017 by [Mykhaylo Kolesnik](http://github.com/tenequm).
